@@ -27,22 +27,25 @@ public class PlayerMovement : MonoBehaviour, Interactable
     {
         if (!isMoving && !isInteracting)
         {
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
+
+            var (x, y) = InputManager.Instance.GetBothAxis();
+            input.x = x;
+            input.y = y;
 
             if (input.x != 0) input.y = 0;
-
             if (input != Vector2.zero)
             {
-                // This could be a class variable so that we get the targetPosition for the DoInteraction()
-                targetPosition = transform.position;
-                targetPosition.x += input.x;
-                targetPosition.y += input.y;
+                var destinyPosition = transform.position;
+                destinyPosition.x += input.x;
+                destinyPosition.y += input.y;
 
                 lastMovementInput = input;
 
-                if (IsWalkable(targetPosition))
-                    StartCoroutine(Move(targetPosition));
+                if (IsWalkable(destinyPosition))
+                {
+                    StartCoroutine(Move(destinyPosition));
+                    targetPosition = destinyPosition;
+                }
             }
         }
     }
@@ -68,7 +71,7 @@ public class PlayerMovement : MonoBehaviour, Interactable
 
     private Interactable GetInteractable(Vector3 targetPosition)
     {
-        var colliders = Physics2D.OverlapCircleAll(targetPosition, 0.3f, interactableLayer);
+        var colliders = Physics2D.OverlapCircleAll(targetPosition, 0.3f, foreGroundLayer | interactableLayer);
         foreach (var collider in colliders)
         {
             var component = collider.GetComponent<Interactable>();
@@ -80,7 +83,7 @@ public class PlayerMovement : MonoBehaviour, Interactable
 
     private void DoInteraction()
     {
-        if (Input.GetButtonDown("Fire1") && !isMoving && !isInteracting)
+        if (InputManager.Instance.IsPressingConfirmation() && !isMoving && !isInteracting)
         {
             var frontTarget = targetPosition;
             frontTarget.x += lastMovementInput.x;

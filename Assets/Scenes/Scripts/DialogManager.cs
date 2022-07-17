@@ -8,7 +8,9 @@ public class DialogManager : MonoBehaviour
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField] private int lettersPerSecond;
+
     private bool isTyping;
+    private bool isFirstLetterWritten;
     private bool isToJumpText;
     private Dialog currentDialog;
     private int currentDialogLine;
@@ -38,6 +40,7 @@ public class DialogManager : MonoBehaviour
         currentDialog = dialog;
         currentDialogLine = 0;
         dialogBox.SetActive(true);
+
         StartCoroutine(TypeDialog());
     }
 
@@ -63,11 +66,11 @@ public class DialogManager : MonoBehaviour
 
     public void DoInteraction()
     {
-        if (Input.GetButtonDown("Fire1") && dialogBox.activeSelf)
+        if (InputManager.Instance.IsPressingConfirmation() && dialogBox.activeSelf)
         {
             if (isTyping)
             {
-                isToJumpText = true;
+                isToJumpText = true && isFirstLetterWritten;
             }
             else if (currentDialog.Lines.Count > currentDialogLine)
             {
@@ -89,8 +92,11 @@ public class DialogManager : MonoBehaviour
         {
             dialogText.text += letter;
             yield return new WaitForSeconds(isToJumpText ? 0f : timingText);
+
+            isFirstLetterWritten = true;
         }
         isTyping = false;
+        isFirstLetterWritten = false;
         isToJumpText = false;
 
         currentDialogLine++;
