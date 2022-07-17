@@ -239,6 +239,7 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
+  radiusForOverlap: 0.3
 --- !u!212 &117495185
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2808,6 +2809,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5027969eec20e664bb52ade0be2ac82f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  confirmationButtonName: Submit
+  axisHorizontal: Horizontal
+  axisVertical: Vertical
+  lastAxisX: 0
+  lastAxisY: 0
 --- !u!1 &913709623
 GameObject:
   m_ObjectHideFlags: 0
