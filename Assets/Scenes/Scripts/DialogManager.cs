@@ -12,6 +12,7 @@ public class DialogManager : MonoBehaviour
     private bool isToJumpText;
     private Dialog currentDialog;
     private int currentDialogLine;
+    private Interactable showDialogSource;
 
     private static DialogManager _Instance;
     public static DialogManager Instance
@@ -40,9 +41,24 @@ public class DialogManager : MonoBehaviour
         StartCoroutine(TypeDialog());
     }
 
+    public void ShowDialogAndNotifyWhenClosed(Dialog dialog, Interactable notifyBack)
+    {
+        showDialogSource = notifyBack;
+        ShowDialog(dialog);
+    }
+
     public void HideDialog()
     {
         dialogBox.SetActive(false);
+        StartCoroutine(NotifySource());
+    }
+
+    private IEnumerator NotifySource()
+    {
+        // The player can't interact with the Interactable in the same frame
+        yield return new WaitForEndOfFrame();
+        showDialogSource?.IsDoneInteracting();
+        showDialogSource = null;
     }
 
     public void DoInteraction()
