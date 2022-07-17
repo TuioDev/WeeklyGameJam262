@@ -8,12 +8,13 @@ public class PlayerMovement : MonoBehaviour, Interactable
     public float moveSpeed;
     public LayerMask foreGroundLayer;
     public LayerMask interactableLayer;
+    public float radiusForOverlap = 0.3f;
 
-    private Vector2 targetPosition;
     private bool isMoving;
     private bool isInteracting;
     private Vector2 input;
     private Vector2 lastMovementInput;
+    private Vector2 targetPosition;
     
 
     // Update is called once per frame
@@ -66,12 +67,12 @@ public class PlayerMovement : MonoBehaviour, Interactable
 
     private bool IsWalkable(Vector3 targetPosition)
     {
-        return Physics2D.OverlapCircle(targetPosition, 0.3f, foreGroundLayer | interactableLayer) == null;
+        return Physics2D.OverlapCircle(targetPosition, radiusForOverlap, foreGroundLayer | interactableLayer) == null;
     }
 
     private Interactable GetInteractable(Vector3 targetPosition)
     {
-        var colliders = Physics2D.OverlapCircleAll(targetPosition, 0.3f, foreGroundLayer | interactableLayer);
+        var colliders = Physics2D.OverlapCircleAll(targetPosition, radiusForOverlap, foreGroundLayer | interactableLayer);
         foreach (var collider in colliders)
         {
             var component = collider.GetComponent<Interactable>();
