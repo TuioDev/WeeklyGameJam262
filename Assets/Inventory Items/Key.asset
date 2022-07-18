@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb6d74bf402f4b418b2e483624da1ed, type: 3}
   m_Name: Key
   m_EditorClassIdentifier: 
-  Id: 
-  DisplayName: 
-  Description: 
-  Item: {fileID: 0}
+  Id: tesao
+  DisplayName: Chave tesuda
+  Description: Bela key
