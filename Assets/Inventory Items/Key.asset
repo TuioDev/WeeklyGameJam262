@@ -15,3 +15,4 @@ MonoBehaviour:
   Id: tesao
   DisplayName: Chave tesuda
   Description: Bela key
+  SpriteInventory: {fileID: 21300102, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
