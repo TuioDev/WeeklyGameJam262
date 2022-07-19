@@ -16,9 +16,8 @@ public class UIManager : MonoBehaviour, IInteractable
     private List<Transform> allIcons = new List<Transform>();
     private List<Transform> allStackNumbers = new List<Transform>();
 
-    private Interactable showInventorySource;
+    private IInteractable showInventorySource;
     private int currentInventorySize;
-    private int selectedItem = 0;
     private bool isOpen;
 
 	public GameObject ToDoItems;
@@ -42,6 +41,7 @@ public class UIManager : MonoBehaviour, IInteractable
     {
         SetUpIconList();
     }
+
     void Update()
     {
         DoInteraction();
@@ -89,7 +89,7 @@ public class UIManager : MonoBehaviour, IInteractable
 	public void OpenMenu()
     {
 		UpdateToDoList();
-        UpdateInventoryList(allIcons);
+        UpdateInventoryList();
         ToggleInventory();
 		isOpen = true;
 	}
@@ -126,13 +126,12 @@ public class UIManager : MonoBehaviour, IInteractable
         foreach (Transform child in itemsArea.transform)
         {
             var area = child.gameObject.GetComponentInChildren<Image>().transform;
-
             allIcons.Add(area.Find("Icon").transform);
         }
     }
-    public void UpdateInventoryList(List<Transform> iconsList)
+    public void UpdateInventoryList()
     {
-        foreach (Transform icon in iconsList)
+        foreach (Transform icon in allIcons)
         {
             icon.gameObject.GetComponent<Image>().sprite = null;
         }
@@ -144,7 +143,7 @@ public class UIManager : MonoBehaviour, IInteractable
         for (int i = 0; i < currentInventorySize; i++)
         {
             InventoryItem item = InventoryManager.Instance.Inventory[i];
-            iconsList[i].GetComponent<Image>().sprite = item.Data.SpriteInventory;
+            allIcons[i].GetComponent<Image>().sprite = item.Data.SpriteInventory;
         }
     }
 }
