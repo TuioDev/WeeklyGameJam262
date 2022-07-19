@@ -30,7 +30,7 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    void Update()
     {
         DoInteraction();
     }
@@ -88,6 +88,7 @@ public class DialogManager : MonoBehaviour
         isTyping = true;
         dialogText.text = "";
         var timingText = 1f / lettersPerSecond;
+
         foreach (var letter in currentDialog.Lines[currentDialogLine].ToCharArray())
         {
             dialogText.text += letter;
@@ -95,6 +96,7 @@ public class DialogManager : MonoBehaviour
 
             isFirstLetterWritten = true;
         }
+
         isTyping = false;
         isFirstLetterWritten = false;
         isToJumpText = false;

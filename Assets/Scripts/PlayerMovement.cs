@@ -84,18 +84,26 @@ public class PlayerMovement : MonoBehaviour, Interactable
 
     private void DoInteraction()
     {
-        if (InputManager.Instance.IsPressingConfirmation() && !isMoving && !isInteracting)
+        if (!isMoving && !isInteracting)
         {
-            var frontTarget = targetPosition;
-            frontTarget.x += lastMovementInput.x;
-            frontTarget.y += lastMovementInput.y;
+            if (InputManager.Instance.IsPressingConfirmation())
+            {
+                var frontTarget = targetPosition;
+                frontTarget.x += lastMovementInput.x;
+                frontTarget.y += lastMovementInput.y;
 
-            var interactable = GetInteractable(frontTarget);
+                var interactable = GetInteractable(frontTarget);
 
-            if (interactable != null)
+                if (interactable != null)
+                {
+                    isInteracting = true;
+                    interactable.Interact(this);
+                }
+            }
+            if (InputManager.Instance.IsPressingToggleInventory())
             {
                 isInteracting = true;
-                interactable.Interact(this);
+                UIManager.Instance.Interact(this);
             }
         }
     }
@@ -107,6 +115,6 @@ public class PlayerMovement : MonoBehaviour, Interactable
 
     public void Interact(Interactable source)
     {
-        //Ops :)
+        //If other things interact with the player
     }
 }

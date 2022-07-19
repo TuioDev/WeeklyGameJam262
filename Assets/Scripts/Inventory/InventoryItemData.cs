@@ -9,4 +9,5 @@ public class InventoryItemData : ScriptableObject
     public string DisplayName;
     [TextArea]
     public string Description;
+    public Sprite SpriteInventory;
 }

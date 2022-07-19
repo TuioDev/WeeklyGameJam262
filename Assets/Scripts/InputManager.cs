@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private string confirmationButtonName = "Fire1";
+    [SerializeField] private string toggleInventoryButtonName = "Fire2";
     [SerializeField] private string axisHorizontal = "Horizontal";
     [SerializeField] private string axisVertical = "Vertical";
 
@@ -29,6 +30,11 @@ public class InputManager : MonoBehaviour
     public bool IsPressingConfirmation()
     {
         return Input.GetButtonDown(confirmationButtonName);
+    }
+    
+    public bool IsPressingToggleInventory()
+    {
+        return Input.GetButtonDown(toggleInventoryButtonName);
     }
 
     public (float x, float y) GetBothAxis()
