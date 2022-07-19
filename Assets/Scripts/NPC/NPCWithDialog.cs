@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class NPCManager : MonoBehaviour, Interactable
+public class NPCWithDialog : MonoBehaviour, IInteractable
 {
     [SerializeField] private Dialog dialog;
-    private Interactable source;
+    private IInteractable source;
 
-    public void Interact(Interactable source)
+    public void Interact(IInteractable source)
     {
         this.source = source;
         DialogManager.Instance.ShowDialogAndNotifyWhenClosed(dialog, this);

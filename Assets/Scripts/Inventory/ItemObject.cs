@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemObject : MonoBehaviour, Interactable
+public class ItemObject : MonoBehaviour, IInteractable
 {
-    private Interactable source;
+    private IInteractable source;
     [SerializeField] private Dialog dialog;
     [SerializeField] private bool isPickable = true;
 
     public InventoryItemData inventoryItemData;
-    public void Interact(Interactable source)
+    public void Interact(IInteractable source)
     {
         if (!isPickable) return;
 

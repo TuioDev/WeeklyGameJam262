@@ -7,14 +7,14 @@ public class DialogManager : MonoBehaviour
 {
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private TextMeshProUGUI dialogText;
-    [SerializeField] private int lettersPerSecond;
+    [SerializeField] private int lettersPerSecond = 30;
 
     private bool isTyping;
     private bool isFirstLetterWritten;
     private bool isToJumpText;
     private Dialog currentDialog;
     private int currentDialogLine;
-    private Interactable showDialogSource;
+    private IInteractable showDialogSource;
 
     private static DialogManager _Instance;
     public static DialogManager Instance
@@ -23,7 +23,7 @@ public class DialogManager : MonoBehaviour
         {
             if (_Instance == null)
             {
-                _Instance = GameObject.FindObjectOfType<DialogManager>();
+                _Instance = FindObjectOfType<DialogManager>();
             }
 
             return _Instance;
@@ -44,7 +44,7 @@ public class DialogManager : MonoBehaviour
         StartCoroutine(TypeDialog());
     }
 
-    public void ShowDialogAndNotifyWhenClosed(Dialog dialog, Interactable notifyBack)
+    public void ShowDialogAndNotifyWhenClosed(Dialog dialog, IInteractable notifyBack)
     {
         showDialogSource = notifyBack;
         ShowDialog(dialog);
