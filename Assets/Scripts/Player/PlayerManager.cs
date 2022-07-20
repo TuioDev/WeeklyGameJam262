@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour, IInteractable
     private bool isMoving;
     private bool isInteracting;
     private bool isPlayerLocked;
+    private bool isSpriteFlipped;
     private Vector2 input;
     private Vector2 lastMovementInput;
     private Vector2 targetPosition;
@@ -52,6 +53,8 @@ public class PlayerManager : MonoBehaviour, IInteractable
         if (input.x != 0) input.y = 0;
         if (input != Vector2.zero)
         {
+            FlipSprite();
+
             var destinyPosition = player.transform.position;
             destinyPosition.x += input.x;
             destinyPosition.y += input.y;
@@ -83,6 +86,20 @@ public class PlayerManager : MonoBehaviour, IInteractable
     private bool IsWalkable(Vector3 targetPosition)
     {
         return Physics2D.OverlapCircle(targetPosition, radiusForOverlap, foreGroundLayer | interactableLayer) == null;
+    }
+
+    void FlipSprite()
+    {
+        if(input.x < 0 && !isSpriteFlipped)
+        {
+            isSpriteFlipped = true;
+            player.GetComponent<SpriteRenderer>().flipX = isSpriteFlipped;
+        }
+        else if(input.x > 0 && isSpriteFlipped)
+        {
+            isSpriteFlipped = false;
+            player.GetComponent<SpriteRenderer>().flipX = isSpriteFlipped;
+        }
     }
 
     private IInteractable GetInteractable(Vector3 targetPosition)
