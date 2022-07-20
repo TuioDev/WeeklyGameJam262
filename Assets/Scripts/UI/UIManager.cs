@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.UI;
-using TMPro;
 
 public class UIManager : MonoBehaviour, IInteractable
 {
@@ -18,6 +16,7 @@ public class UIManager : MonoBehaviour, IInteractable
 
     private IInteractable showInventorySource;
     private int currentInventorySize;
+    private const int baseStackValue = 1;
     private bool isOpen;
 
 	public GameObject ToDoItems;
@@ -125,8 +124,9 @@ public class UIManager : MonoBehaviour, IInteractable
     {
         foreach (Transform child in itemsArea.transform)
         {
-            var area = child.gameObject.GetComponentInChildren<Image>().transform;
+            Transform area = child.gameObject.GetComponentInChildren<Image>().transform;
             allIcons.Add(area.Find("Icon").transform);
+            allStackNumbers.Add(area.Find("Icon/Stack").transform);
         }
     }
     public void UpdateInventoryList()
@@ -134,6 +134,11 @@ public class UIManager : MonoBehaviour, IInteractable
         foreach (Transform icon in allIcons)
         {
             icon.gameObject.GetComponent<Image>().sprite = null;
+        }
+        foreach (Transform stack in allStackNumbers)
+        {
+            stack.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = baseStackValue.ToString();
+            stack.gameObject.SetActive(false);
         }
 
         currentInventorySize = InventoryManager.Instance.Inventory.Count;
@@ -144,6 +149,8 @@ public class UIManager : MonoBehaviour, IInteractable
         {
             InventoryItem item = InventoryManager.Instance.Inventory[i];
             allIcons[i].GetComponent<Image>().sprite = item.Data.SpriteInventory;
+            allStackNumbers[i].gameObject.SetActive(true);
+            allStackNumbers[i].GetComponentInChildren<TextMeshProUGUI>().text = item.StackSize.ToString();
         }
     }
 }
