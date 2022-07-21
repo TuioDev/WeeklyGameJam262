@@ -9232,6 +9232,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 463737148185530252, guid: 782589ef18808b746a49764b62b2f2bb,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 463737148185530252, guid: 782589ef18808b746a49764b62b2f2bb,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 463737148185530252, guid: 782589ef18808b746a49764b62b2f2bb,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1635014981
+      objectReference: {fileID: 0}
     - target: {fileID: 463737148460422209, guid: 782589ef18808b746a49764b62b2f2bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -9291,6 +9306,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LevelLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 463737148460422215, guid: 782589ef18808b746a49764b62b2f2bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 782589ef18808b746a49764b62b2f2bb, type: 3}
@@ -11920,7 +11940,7 @@ PrefabInstance:
     - target: {fileID: 1027745864546857413, guid: e754e6b27829fa344990d2c75a5b49c0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -8.38
+      value: -8.380005
       objectReference: {fileID: 0}
     - target: {fileID: 1027745864546857413, guid: e754e6b27829fa344990d2c75a5b49c0,
         type: 3}
@@ -14129,8 +14149,8 @@ Canvas:
   m_GameObject: {fileID: 2119819778}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
